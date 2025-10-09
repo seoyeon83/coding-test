@@ -26,3 +26,11 @@ def solution(sizes):
             size[1], size[0] = size[0], size[1]
     
     return max(sizes, key=lambda x: x[0])[0] * max(sizes, key=lambda x: x[1])[1] 
+
+
+### 3번째 풀이 (251009)
+def solution(sizes):
+    w = max([max(s) for s in sizes])
+    h = max([min(s) for s in sizes])
+        
+    return w * h
