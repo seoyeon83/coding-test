@@ -51,3 +51,57 @@ for i in range(len(apps)):
 
 
 print(answer)
+
+
+
+'''
+### 정답은 통과했는데.. 이게 좋은 코드일까? (Gemini에게 물어보자)
+
+와.. 코드 잘 짠다...
+이렇게 짤 수도 있구나 너무 신기하다!!!
+try-except를 활용하는 게 인상적이다 앞으로는 if-else보다도 이렇게 코드를 짜보도록 해봐야겠다
+'''
+import sys
+
+# 입력 처리
+N, K = map(int, sys.stdin.readline().split())
+apps = list(map(int, sys.stdin.readline().split()))
+
+plugged = [] # 멀티탭에 꽂힌 기기들 (powers 대신 더 직관적인 이름 사용)
+answer = 0
+
+for i, app in enumerate(apps):
+    # 1. 이미 꽂혀있는 경우
+    if app in plugged:
+        continue
+    
+    # 2. 빈 자리가 있는 경우
+    if len(plugged) < N:
+        plugged.append(app)
+        continue
+    
+    # 3. 꽉 차서 하나를 빼야 하는 경우 (가장 핵심 로직)
+    target_idx = -1     # 뺄 기기의 인덱스 (plugged 리스트 내의 위치)
+    latest_usage = -1   # 가장 늦게 사용되는 시점
+
+    for idx, p in enumerate(plugged):
+        try:
+            # 현재 시점(i) 이후에 해당 기기(p)가 언제 나오는지 확인
+            # apps[i+1:] 에서 p의 위치를 찾음
+            next_use = apps[i+1:].index(p)
+        except ValueError:
+            # 앞으로 사용할 일이 없다면 최우선 제거 대상
+            target_idx = idx
+            break 
+        
+        # 가장 늦게 사용되는 기기를 갱신
+        if next_use > latest_usage:
+            latest_usage = next_use
+            target_idx = idx
+            
+    # 정해진 기기를 빼고 새 기기를 꽂음
+    # (plugged 리스트의 값을 덮어쓰거나, pop 후 append)
+    plugged[target_idx] = app 
+    answer += 1
+
+print(answer)
