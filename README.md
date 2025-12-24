@@ -13,4 +13,5 @@
 ### 풀이 플랫폼
 - Programmers (poj)
 - 백준 (boj)
+- solvesql (solvesql)
 - 추가 예정
