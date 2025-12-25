@@ -18,3 +18,15 @@ group by
   end
 order by
   stamp asc;
+
+-- 251225 다시 풀어보았음! 한 번에 성공 ㅎㅎ
+SELECT 
+  CASE
+    WHEN total_bill >= 25 THEN 2
+    WHEN total_bill >= 15 THEN 1
+    ELSE 0
+  END AS stamp,
+  COUNT(*) AS count_bill
+FROM tips
+GROUP BY stamp
+ORDER BY stamp ASC;
