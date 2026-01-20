@@ -18,3 +18,33 @@ def solution(s):
         
     if stack: return False
     return True
+
+
+'''
+260120 다시 풀었음
+
+s 길이가 홀수 개면 False (짝이 안 맞으니까)
+
+( => push
+) => pop
+
+s를 다 순회하고도 stack에 값이 남아있으면 False, 없으면 True
+
+첫 번째로 풀었을 때보다 깔끔한 것 같다!
+'''
+
+def solution(s):
+    if len(s) % 2 == 1: 
+        return False
+
+    stack = list()
+    
+    for c in s:
+        if c == '(':
+            stack.append(c)
+        elif stack and c == ')':
+            stack.pop()
+    
+    if stack:
+        return False
+    return True
