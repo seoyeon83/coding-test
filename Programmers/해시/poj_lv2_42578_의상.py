@@ -31,3 +31,27 @@ def solution(clothes):
         answer *= v
         
     return answer - 1
+
+
+'''
+260121 다시 풀이함
+어떻게 이렇게 똑같이 풀었을까..
+차이점: dict에 key 값 유무를 판단하는 방식.. 인데 category in d가 더 권장된다네
+앞으로는 그렇게 하는 것으로!
+'''
+def solution(clothes):
+    # dict로 각 의상별 개수 기록
+    d = dict()
+    for _, category in clothes:
+        if category in d:
+            d[category] += 1
+        else:
+            d[category] = 2
+    
+    # 경우의 수 계산
+    answer = 1
+    for _, v in d.items():
+        answer *= v
+    
+    # 아예 안 입은 하나의 경우를 제외
+    return answer - 1
