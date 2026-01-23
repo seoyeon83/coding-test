@@ -20,3 +20,16 @@ def solution(phone_book):
                 return False
     
     return True
+
+
+'''
+260123에 다시 푼 것
+'''
+def solution(phone_book):
+    d = set(phone_book)
+    
+    for phone in phone_book:
+        for i in range(1, len(phone)):
+            if phone[:i] in d:
+                return False
+    return True
