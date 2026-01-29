@@ -20,3 +20,29 @@ def solution(prices):
         answer[i] = len(prices) - 1 - i
 
     return answer
+
+
+'''
+260129
+전에 푼 것보다 보기 편한 것 같음
+근데 이것도 다른 분 풀이를 훑어보고 내가 짠 거라.. 다음에 다시 풀어봐야한다
+'''
+
+from collections import deque
+
+def solution(prices):
+    answer = list()
+    queue = deque(prices)
+    
+    while queue:
+        n = queue.popleft()
+        cnt = 0
+        
+        for price in queue:
+            cnt += 1
+            if n > price:
+                break
+        
+        answer.append(cnt)
+    
+    return answer
