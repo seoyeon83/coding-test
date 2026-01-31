@@ -26,3 +26,23 @@ def solution(citations):
         i = h-1 if (h-1) <= n-1 else n-1
         if citations[i] >= h:
             return h
+        
+
+'''
+260131에 다시 푼 것
+
+반복문의 초기값을 논문 최대 인용 수로 하는 건 큰 의미가 없음
+왜냐면 어차피 논문 개수보다 인용수가 다 커도 h-index는 논문 개수가 되기 때문
+(5, 6, 7, 8 => 4)
+
+h번째 논문의 인용 수만 확인하면 됨
+왜냐면 내림차순 정렬을 했기 때문에 h번재 논문 앞에는 모두 인용수가 같거나 크고, 뒤에는 인용수가 같거나 작을 것이므로
+'''
+
+def solution(citations):
+    n = len(citations)
+    citations.sort(reverse=True)
+    
+    for h in range(n, -1, -1):
+        if citations[h-1] >= h:
+            return h
