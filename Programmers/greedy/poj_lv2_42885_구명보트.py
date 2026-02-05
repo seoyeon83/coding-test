@@ -18,3 +18,24 @@ def solution(people, limit):
         l += 1
             
     return answer
+
+
+'''
+260205
+'''
+
+def solution(people, limit):
+    answer = 0
+    
+    people.sort()
+    l, r = 0, len(people)-1
+    
+    while l <= r:
+        # 가장 가벼운 사람 + 가장 무거운 사람 동시에 구출 가능
+        # 불가능하면 가장 무거운 사람만 구출
+        if people[l] + people[r] <= limit:
+            l += 1
+        answer += 1
+        r -= 1
+        
+    return answer
