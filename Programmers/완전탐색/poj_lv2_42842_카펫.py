@@ -10,3 +10,15 @@ def solution(brown, yellow):
         h += 1
 
 print(solution(10, 2))
+
+
+'''
+260214
+'''
+def solution(brown, yellow):
+    s = brown + yellow
+    for a in range(2, int(s/2) + 1):
+        if s%a == 0 :
+            b = s // a
+            if (a + b) * 2 - 4 == brown and (a - 2) * (b - 2) == yellow:
+                return [b, a]
