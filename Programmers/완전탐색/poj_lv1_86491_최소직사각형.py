@@ -34,3 +34,21 @@ def solution(sizes):
     h = max([min(s) for s in sizes])
         
     return w * h
+
+'''
+260612
+의도: 긴 쪽을 x, 짧은 쪽을 y로 통일
+근데 지난 번에 3번째로 푼 게 가장 베스트인 듯..
+'''
+
+def solution(sizes):
+    x, y = [], []
+    for i, j in sizes:
+        if i < j: 
+            x.append(j)
+            y.append(i)
+        else:
+            x.append(i)
+            y.append(j)
+    
+    return max(x) * max(y)
