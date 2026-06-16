@@ -8,6 +8,7 @@
     - [WIP] : Work in Progress
     - [Try] : 시도했지만 아직 풀지 못함
     - [Review] : 다른 사람 풀이를 참고해 정리
+    - [Refactor] : 통과했지만 코드 개선
     - [Add] : 직접 문제 풀이 성공
 
 ### 풀이 플랫폼
