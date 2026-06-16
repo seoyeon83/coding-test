@@ -104,3 +104,54 @@ def solution(progresses, speeds):
         answer.append(cnt)
         
     return answer
+
+'''
+260616
+이전에 풀었던 것보다 더 퇴화했다.. 하하
+deque를 쓰는 이유가 popleft() O(1)을 위해서인데, 그 안에서 인덱스 접근을 하는 것이 충돌... 
+하긴 생각해보니 큐인데 인덱스로 계산을 한다는 것이 맞지 않는 게 이해가 된다
+개선: 미리 완료까지 걸리는 일수를 계산할 것
+    => days = [math.ceil((100 - p) / s) for p, s in zip(progresses, speeds)]
+'''
+
+from collections import deque
+
+def solution(progresses, speeds):
+    answer = []
+    progresses = deque(progresses)
+    speeds = deque(speeds)
+    
+    while progresses:
+        while progresses[0] < 100:
+            for i in range(len(progresses)):
+                progresses[i] += speeds[i]
+        
+        cnt = 0
+        while progresses and progresses[0] >= 100:
+            cnt += 1
+            progresses.popleft()
+            speeds.popleft()
+        answer.append(cnt)
+        
+    return answer
+
+# 개선
+import math
+
+def solution(progresses, speeds):
+    days = [math.ceil((100 - p) / s) for p, s in zip(progresses, speeds)]
+    
+    answer = []
+    max_day = days[0]
+    cnt = 1
+
+    for d in days[1:]:
+        if d <= max_day:
+            cnt += 1
+        else:
+            answer.append(cnt)
+            cnt = 1
+            max_day = d 
+        
+    answer.append(cnt)
+    return answer
