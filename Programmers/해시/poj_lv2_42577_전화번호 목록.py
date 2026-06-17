@@ -33,3 +33,39 @@ def solution(phone_book):
             if phone[:i] in d:
                 return False
     return True
+
+'''
+260617
+내가 왜 set 말고 dict를 썼지..?
+개선:
+    1) 단순 존재 여부 확인은 dict 말고 set 사용
+    2) 더 단순한 풀이가 있다 (startswith() 활용) -> "119".startswith("1")    # True
+'''
+def solution(phone_book):
+    d = {phone:True for phone in phone_book}
+    m = len(min(phone_book, key=len))
+    phone_book.sort()
+    for phone in phone_book[1:]:
+        for i in range(m, len(phone)):
+            if d.get(phone[:i], False):
+                return False
+        
+    return True
+# 개선 1
+def solution(phone_book):
+    sets = {phone_book}
+    m = len(min(phone_book, key=len))
+    phone_book.sort()
+    for phone in phone_book[1:]:
+        for i in range(m, len(phone)):
+            if phone[:i] in sets:
+                return False
+        
+    return True
+# 개선 2 - 더 단순한 풀이
+def solution(phone_book):
+    phone_book.sort()
+    for i in range(len(phone_book) - 1):
+        if phone_book[i+1].startswith(phone_book[i]):
+            return False   
+    return True
