@@ -48,3 +48,10 @@ def solution(array, commands):
 
 def solution(array, commands):
     return [sorted(array[start-1:end])[target-1] for start, end, target in commands]
+
+'''
+# 260618 - 복습
+'''
+
+def solution(array, commands):
+    return [sorted(array[i-1:j])[k-1] for i, j, k in commands]
