@@ -69,3 +69,19 @@ def solution(phone_book):
         if phone_book[i+1].startswith(phone_book[i]):
             return False   
     return True
+
+'''
+260618 - 복습
+음.. 근데 전에 공부한 대로 전혀 안 풀었다. 
+하지만 틀린 건 아니기 때문에 다음에 풀 때는 지난 풀이를 떠올려볼 수 있으면 좋겠다.
+'''
+
+def solution(phone_book):
+    s = set(phone_book)
+    
+    for phone in phone_book:
+        for i in range(1, len(phone)):
+            if phone[:i] in s:
+                return False
+            
+    return True
