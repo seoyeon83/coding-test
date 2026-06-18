@@ -155,3 +155,42 @@ def solution(progresses, speeds):
         
     answer.append(cnt)
     return answer
+
+'''
+260618 - 복습
+기억을 기반으로 날짜 수 계산하고 answer을 계산하는 방법으로 진행
+날짜 계산 로직은 괜찮았는데, answer 로직 계산 코드가 좀 헷갈려서 시간이 걸렸지만 결국 혼자 풀었다!
+개선:
+    1) 날짜 계산 시, range 말고 zip 사용
+'''
+import math
+
+def solution(progresses, speeds):
+    days = [math.ceil((100-progresses[i])/speeds[i]) for i in range(len(progresses))]
+    
+    answer = [1]
+    cur_day = days[0]
+    for day in days[1:]:
+        if day <= cur_day:
+            answer[-1] += 1
+        else:
+            answer.append(1)
+            cur_day = day
+            
+    return answer
+# 개선
+import math
+
+def solution(progresses, speeds):
+    days = [math.ceil((100 - p) / s) for p, s in zip(progresses, speeds)]
+    
+    answer = [1]
+    cur_day = days[0]
+    for day in days[1:]:
+        if day <= cur_day:
+            answer[-1] += 1
+        else:
+            answer.append(1)
+            cur_day = day
+            
+    return answer
