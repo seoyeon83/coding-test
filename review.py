@@ -11,7 +11,7 @@ def main():
 
     today = date.today()
 
-    add_days    = {7: '1주일 후', 30: '1달 후', 90: '3달 후'}
+    add_days    = {14: '2주일 후', 30: '1달 후', 90: '3달 후'}
     review_days = {1: '1일 후',   7: '1주일 후', 21: '3주일 후'}
 
     all_days = set(add_days) | set(review_days)
