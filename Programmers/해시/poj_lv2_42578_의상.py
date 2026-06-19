@@ -55,3 +55,28 @@ def solution(clothes):
     
     # 아예 안 입은 하나의 경우를 제외
     return answer - 1
+
+'''
+# 260619
+접근: 경우의 수 계산 문제. 카테고리별 옷 개수를 세고, 옷 조합의 경우의 수를 계산한다. (아예 안 입는 경우 제외)
+아주 정확히 잘 풀었다고!
+개선점(선택): 좀 더 pythonic하게 줄이는 방법
+    from collections import Counter
+    from math import prod
+
+    def solution(clothes):
+        cnt = Counter(category for _, category in clothes)
+        return prod(v + 1 for v in cnt.values()) - 1
+'''
+def solution(clothes):
+    # 카테고리별 옷 개수 세기
+    cnt = {}
+    for _, category in clothes:
+        cnt[category] = cnt.get(category, 0) + 1
+    
+    # 경우의 수 계산
+    answer = 1
+    for _, v in cnt.items():
+        answer *= (v+1)
+    
+    return answer - 1
