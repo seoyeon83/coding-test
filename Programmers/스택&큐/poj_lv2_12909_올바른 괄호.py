@@ -55,3 +55,26 @@ def solution(s):
     return True
 
 print(solution('()))'))
+
+
+'''
+# 260620
+접근: 괄호 검사는 역시 스택이지! 
+    - (면 push, )면 pop
+    - 모든 s를 다 돌았을 때도 stack이 비어있지 않으면 False
+    - )인데 stack이 비어있으면 false
+개선:
+    1) 괄호 종류가 한 개라서 지금 열려있는 개수만 세도 된다
+    2) stack이 비어있는지에 대한 건 `not stack` 으로 할 수 있다
+'''
+def solution(s):
+    stack = []
+    for c in s:
+        if c == "(":
+            stack.append(c)
+        elif stack:
+            stack.pop()
+        else:
+            return False
+            
+    return False if stack else True
