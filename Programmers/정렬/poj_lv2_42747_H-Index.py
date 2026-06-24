@@ -46,3 +46,16 @@ def solution(citations):
     for h in range(n, -1, -1):
         if citations[h-1] >= h:
             return h
+
+'''
+# 260624
+접근: 내림차순으로 정렬하고, 인용 수가 많은 것부터 보면서 인용 수 > 인덱스 를 만족하는 논문 수를 센다.
+깔끔하고 똑똑해 보이는 건 이전 풀이긴 하지만... 이번에 카운팅하며 푼 풀이가 더욱 정확한 풀이인 것 같다
+'''
+def solution(citations):
+    answer = 0
+    citations.sort(reverse=True)
+    for i in range(len(citations)):
+        if citations[i] > i:
+            answer += 1
+    return answer
