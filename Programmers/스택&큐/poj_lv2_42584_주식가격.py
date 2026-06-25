@@ -46,3 +46,31 @@ def solution(prices):
         answer.append(cnt)
     
     return answer
+
+'''
+# 260625
+접근: 스택에 아직 가격이 떨어지지 않은 인덱스를 저장한다
+
+이번에도 도무지 모르겠어서 클로드한테 힌트를 좀 받아서 풀었다
+이전에는 큐로 풀었는데 이번에는 스택으로! 근데 스택이 더욱 문제가 의도한 풀이 방식인 것 같다 (모범 답안 느낌)
+다음에 다시 풀 때 꼭 이번 풀이를 기억하도록..
+'''
+
+def solution(prices):
+    answer = [0] * len(prices)
+    stack = []
+    
+    for i in range(len(prices)):
+        # 떨어진 경우
+        while stack and prices[stack[-1]] > prices[i]:
+            j = stack.pop()
+            answer[j] = i - j
+        # 안 떨어진 경우
+        stack.append(i)
+            
+    # 마지막까지 스택에 값이 남은 경우
+    while stack:
+        j = stack.pop()
+        answer[j] = len(prices) - 1 - j
+        
+    return answer
