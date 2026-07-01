@@ -74,3 +74,27 @@ def solution(prices):
         answer[j] = len(prices) - 1 - j
         
     return answer
+
+'''
+# 260701 (복습)
+지난 번의 풀이 중 스택을 써야한다는 건 기억하고 있었지만, 
+단순히 기억나는 대로 풀기보다 스스로 논리적으로 풀이 과정을 
+고려하면서 풀이했더니 여러 번 실패 끝에 성공할 수 있었다!
+'''
+def solution(prices):
+    answer = [0] * len(prices)
+    stack = []
+    for i in range(len(prices)):
+        price = prices[i]
+        
+        while stack and price < prices[stack[-1]]:
+            idx = stack.pop()
+            answer[idx] = i - idx
+            
+        stack.append(i)
+            
+    while stack:
+        idx = stack.pop()
+        answer[idx] = i - idx
+        
+    return answer
