@@ -37,3 +37,23 @@ def solution(number, k):
     if k > 0:                # 다 훑었는데 지울 게 남으면(내림차순이었던 경우)
         stack = stack[:-k]   # 뒤에서 k개 자름
     return ''.join(stack)
+
+'''
+# 260703
+어제 풀이를 기반으로 혼자 풀어보려고 했다. 조오금 다르긴 하지만 가장 중요한 로직은 그대로 스스로 떠올리고 재현해냈다! 
+'''
+def solution(number, k):
+    stack = [number[0]]
+    
+    for n in number[1:]:
+        while stack and k > 0 and n > stack[-1]:
+            stack.pop()
+            k -= 1
+        stack.append(n)
+
+    # 내림차순이나 다 같은 숫자인 경우를 위해 뒤에서부터 지우기
+    while stack and k > 0:
+        stack.pop()
+        k -= 1
+        
+    return ''.join(stack)
