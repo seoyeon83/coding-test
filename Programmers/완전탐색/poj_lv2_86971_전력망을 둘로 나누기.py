@@ -49,4 +49,83 @@ def solution(n, wires):
     
     return answer
 
-print(solution(4, [[1, 2], [1, 3], [1, 4]]))
+'''
+# 260714
+접근: combinations로 전선 한 개를 뺀 조합을 만들고, 그걸 기반으로 인접 양방향 그래프를 딕셔너리로 표현
+    그래프를 탐색하면서 나눠진 두 영역의 노드 개수를 세서 비교한다
+개선점: 
+    1) 기존에는 두 영역을 다 셌는데 사실 한 영역만 세면 된다
+    2) dfs(, , visited=set()) 으로 설정하고 만약 이 설정으로 set()이 호출되면 이 함수 안에서는 visited를 모든 호출이 공유한다
+    3) cnt로 따로 세지 않아도 visited 개수를 세면 된다
+    4) 좀 더 의미를 살려서 함수명/변수명 개선
+'''
+
+from itertools import combinations 
+
+
+def dfs(graph, start, visited=set()):
+    stack = [start]
+    cnt = 0
+    
+    while stack:
+        n = stack.pop()
+        if n not in visited:
+            cnt += 1
+            visited.add(n)
+            for i in graph[n]:
+                stack.append(i)
+    
+    return cnt, visited
+
+
+def solution(n, wires):
+    answer = n
+    for comb in combinations(wires, len(wires)-1):
+        graph = {i:[] for i in range(1, n+1)}
+        visited = set()
+        result = []
+        for a, b in comb:
+            graph[a].append(b)
+            graph[b].append(a)
+        
+        for i in range(1, n+1):
+            if i not in visited:
+                r, visited = dfs(graph, i, visited)
+                result.append(r)
+            
+        answer = min(answer, abs(result[0]-result[1]))
+
+    return answer
+
+# 개선
+
+from itertools import combinations 
+
+
+def count_nodes(graph, start):
+    stack = [start]
+    visited = set()
+    
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            for neighbor in graph[node]:
+                stack.append(neighbor)
+    
+    return len(visited)
+
+
+def solution(n, wires):
+    answer = n
+    for kept in combinations(wires, len(wires)-1):
+        graph = {i:[] for i in range(1, n+1)}
+        for a, b in kept:
+            graph[a].append(b)
+            graph[b].append(a)
+        
+        size = count_nodes(graph, 1)
+            
+        answer = min(answer, abs(2 * size - n))
+
+    return answer
