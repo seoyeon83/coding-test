@@ -11,3 +11,9 @@ def solution(word):
 
 
 print(solution("AAAAE"))
+
+
+'''
+# 260715 
+다시 봐도 어떻게 푸는지 모르겠어서 지난 풀이를 보고 다시 따로 정리해봤다
+'''
