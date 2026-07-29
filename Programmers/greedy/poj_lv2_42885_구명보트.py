@@ -39,3 +39,25 @@ def solution(people, limit):
         r -= 1
         
     return answer
+
+
+'''
+# 260729
+접근: 가장 적은 보트를 이용하도록 하기 위해서는 최소 몸무게인 사람과 최고 몸무게인 사람을 같이 태워야 한다.
+    몸무게 기준 정렬해서 비교한다. 합이 limit을 넘기면 최고 몸무게인 사람만(조건상 무조건 넘지 않으므로),
+    넘지 않으면 둘 다 구조한다
+'''
+
+def solution(people, limit):
+    answer = 0
+    
+    people.sort()
+    l, r = 0, len(people)-1
+    
+    while l <= r:
+        if people[l] + people[r] <= limit:
+            l += 1
+        r -= 1
+        answer += 1
+        
+    return answer
