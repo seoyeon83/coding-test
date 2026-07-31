@@ -40,3 +40,58 @@ def solution(genres, plays):
             answer.append(songs[i][1][0])
     
     return answer
+
+'''
+# 260731
+문제를 잘못 읽고 장르를 두 개 꼽고 그 장르 내에서 최대 두 곡을 뽑는 건 줄 알고 풀다가.
+이전 코드를 보며 공부하다가 뒤늦게 문제를 잘못 이해했다는 걸 깨달았다
+문제를 잘 읽어야 하는 이유..
+
+개선:
+    (1) 장르 내 정렬 시 동점 규칙이 있고 각각 오름차순, 내림차순이어서 정렬을 두 번 했다. 이걸 한 줄로 줄일 수 있다고 함
+        => lambda x: (-x[1], x[0]) 마이너스 기호를 사용할 수 있는 건 처음 알았다'
+    (2) 마지막 반복문 순회 자료형 변경 및 딕셔너리 변수명 개선
+        장르별 노래를 모아둔 songs를 genre_songs로 바꾸고, 
+        매 반복 시 인덱스를 사용하는 게 아니라 genre_songs의 각 원소(songs)로 직접 받아서 쓴다
+        반복문 내에서 장르 내 정렬 후 변수명도 ranked로 수정해서 가독성을 높인다
+    (3) answer 업데이트 로직 개선
+        하나 넣고 조건 검사 후 하나를 더 넣는 방식이 아니라 for문으로 answer 업데이트
+'''
+
+def solution(genres, plays):
+    genre_dict = {genre:{} for genre in set(genres)}
+    for i in range(len(plays)):
+        genre_dict[genres[i]][i] = plays[i]
+    
+    # 장르 정렬
+    songs = sorted(genre_dict.values(), key=lambda x: sum(x.values()), reverse=True)
+    
+    answer = []
+    for i in range(len(songs)):
+        # 장르 내 정렬
+        songs[i] = sorted(songs[i].items(), key=lambda x: x[0])
+        songs[i] = sorted(songs[i], key=lambda x: x[1], reverse=True)
+        answer.append(songs[i][0][0])
+        if len(songs[i]) > 1:
+            answer.append(songs[i][1][0])
+
+    return answer
+
+# 개선 후 
+
+def solution(genres, plays):
+    genre_dict = {genre:{} for genre in set(genres)}
+    for i in range(len(plays)):
+        genre_dict[genres[i]][i] = plays[i]
+    
+    # 장르 정렬
+    genre_songs = sorted(genre_dict.values(), key=lambda x: sum(x.values()), reverse=True)
+    
+    answer = []
+    for songs in range(len(genre_songs)):
+        # 장르 내 정렬
+        ranked = sorted(songs.items(), key=lambda x: (-x[1], x[0]))
+        for id, _ in ranked[:2]:
+            answer.append(id)
+
+    return answer
