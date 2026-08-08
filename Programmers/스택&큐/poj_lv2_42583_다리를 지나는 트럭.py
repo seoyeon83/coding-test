@@ -67,3 +67,31 @@ def solution(bridge_length, weight, truck_weights):
 print(solution(2, 10, [7,4,5,6]))
 print(solution(100, 100, [10]))
 print(solution(100, 100, [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]))
+
+'''
+# 260809
+예전에 공부해본 풀이가 자연스럽게 다시 떠올라서 잘 풀었다! 굿굿
+'''
+
+from collections import deque
+
+def solution(bridge_length, weight, truck_weights):
+    trucks = deque(truck_weights)
+    bridge = deque([0] * bridge_length)
+    
+    bridge_weight = 0
+    answer = 0
+    
+    while bridge_weight > 0 or trucks:
+        answer += 1
+        bridge_weight -= bridge.popleft()
+        
+        
+        if trucks and trucks[0] + bridge_weight <= weight:
+            current_truck = trucks.popleft()
+            bridge_weight += current_truck
+            bridge.append(current_truck)
+        else:
+            bridge.append(0)
+    
+    return answer
