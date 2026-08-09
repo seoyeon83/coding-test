@@ -95,3 +95,27 @@ def solution(genres, plays):
             answer.append(id)
 
     return answer
+
+
+'''
+# 260810
+지난 번에 착각한 걸 이번에는 다시 제대로 풀 수 있었다
+초반에는 딕셔너리 안에 리스트로 풀었다가... 인덱싱할 때 문제가 생겨서 다행히 딕셔너리 안에 딕셔너리로 풀 수 있었다
+'''
+
+def solution(genres, plays):
+    songs = {genre:{} for genre in set(genres)}
+    for i, play in enumerate(plays):
+        songs[genres[i]][i] = play
+
+    # 장르 내 곡 정렬
+    top_genres = sorted(songs.values(), key=lambda x: sum(x.values()), reverse=True)
+    
+    # 장르 내 곡 선정
+    answer = []
+    for genre_songs in top_genres:
+        top_songs = sorted(genre_songs.items(), key=lambda x: (-x[1], x[0]))
+        for i, _ in top_songs[:2]:
+            answer.append(i)
+
+    return answer
