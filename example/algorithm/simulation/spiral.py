@@ -16,7 +16,7 @@ def spiral_in(n):
     for i in range(n * n):
         order[r][c] = i
         nr, nc = r + sdr[d], c + sdc[d]
-        # 범위를 벗어났거나 order가 -1인 경우면 방향 바꾸기
+        # 범위를 벗어났거나 order가 -1이 아닌 경우면 방향 바꾸기
         if not (0 <= nr < n and 0 <= nc < n) or order[nr][nc] != -1:
             d = (d + 1) % 4
             nr, nc = r + sdr[d], c + sdc[d]
